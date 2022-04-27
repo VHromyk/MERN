@@ -3,6 +3,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 
 const usersRouter = require('./routes/user')
+const exerciseRouter = require('./routes/exercise');
 
 require('dotenv').config();
 
@@ -19,6 +20,11 @@ mongoose.connection.once('open', () => {
 })
 
 app.use('/users', usersRouter);
+app.use('/users/add', usersRouter);
+app.use('/users/update', usersRouter);
+
+app.use('/exercises', exerciseRouter);
+app.use('/exercises/add', exerciseRouter);
 
 
 
