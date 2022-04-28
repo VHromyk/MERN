@@ -14,8 +14,14 @@ const getUsers = (req, res) => {
 const getUserById = (req, res) => {
     const { id } = req.params;
     User.findById(id)
-        .then((user) =>
-            res.status(200).json({ success: true, data: user })
+        .then((user) => {
+            if (user) {
+                res.status(200).json({ success: true, data: user })
+            } else {
+                res.status(404).json({ success: false, data: `Id ${id} wasn't was found` });
+            }
+            
+        }
         )
         .catch((err) => res.status(400).json(`Error ${err}`));
 }
@@ -23,16 +29,22 @@ const getUserById = (req, res) => {
 const updateUserById = (req, res) => {
     const { id } = req.params;
     const { username } = req.body;
-    User.findByIdAndUpdate(id, username).then((el) => {
-        el.username = username;
-        el.save()
-            .then(() =>
-                res.json({
-                    success: true,
-                    data: `User with id ${id} was updated`,
-                })
-            );
-
+    User.findByIdAndUpdate(id, username).then((user) => {
+        if (!user) {
+            res.status(404).json({
+                success: false,
+                data: `User with id ${id} was not founded`,
+            });
+        } else {
+            user.username = username;
+            user.save()
+                .then(() =>
+                    res.json({
+                        success: true,
+                        data: user,
+                    })
+                );
+        }
         })
         .catch((err) => res.status(400).json(`Error ${err}`));
 };

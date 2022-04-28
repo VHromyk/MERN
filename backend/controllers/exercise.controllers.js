@@ -6,7 +6,16 @@ const getExercise = (req, res) => {
         .catch((err) => res.status(400).json(`Error ${err}`));
 };
 
-
+const getExerciseById = (req, res) => {
+    const { id } = req.params;
+    Exercise.findById(id).then(exercise => {
+        if (!exercise) {
+            res.status(404).json({ success: false, data: `Exercise with id ${id} wasn't founded` })
+        } else {
+            res.status(200).json({ success: true, data: exercise })
+        }
+    }).catch((error) => res.status(404).json(`Erorr ${error}`))
+}
 
 const createExercise = (req, res) => {
     const { username, description } = req.body;
@@ -19,5 +28,5 @@ const createExercise = (req, res) => {
         .catch((err) => res.status(400).json(`Error ${err}`));
 };
 
-module.exports = { getExercise, createExercise };
+module.exports = { getExercise, getExerciseById, createExercise };
 
