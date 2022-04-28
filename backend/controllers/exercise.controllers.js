@@ -17,6 +17,13 @@ const getExerciseById = (req, res) => {
     }).catch((error) => res.status(404).json(`Erorr ${error}`))
 }
 
+const removeExerciseById = (req, res) => {
+    const { id } = req.params;
+    Exercise.findByIdAndDelete(id)
+        .then(res.status(200).json({succes: true, data: `Exercise with id ${id} was deleted`}))
+        .catch((error) => res.status(404).json(`Erorr ${error}`));
+};
+
 const createExercise = (req, res) => {
     const { username, description } = req.body;
     const duration = Number(req.body.duration);
@@ -28,5 +35,5 @@ const createExercise = (req, res) => {
         .catch((err) => res.status(400).json(`Error ${err}`));
 };
 
-module.exports = { getExercise, getExerciseById, createExercise };
+module.exports = { getExercise, getExerciseById, removeExerciseById, createExercise };
 
