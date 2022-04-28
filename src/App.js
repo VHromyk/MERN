@@ -1,18 +1,34 @@
-import './app.css'
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Navbar from './components/navbar.component'
+import ExercisesList from './components/exercises-list.component';
+import EditExercises from './components/edit-exercises.component';
+import CreateExercises from './components/create-exercise.component';
+import CreateUser from './components/create-user.component';
+import './app.css';
 
 function App() {
   return (
-    <Router>
-      <Navbar />
-      <br />
-      {/* <Route path="/" exact component={<p>Heloo</p>} />
-      <Route path="/edit/:id" exact component={ExercisesList} />
-      <Route path="/create" exact component={ExercisesList} />
-      <Route path="/user" exact component={ExercisesList} /> */}
-    </Router>
+      <>
+          <BrowserRouter>
+              <Navbar />
+              <div className="container">
+                  <Routes>
+                      <Route path="/" exact element={<ExercisesList />} />
+                  </Routes>
+                  <Routes>
+                      <Route path="/edit/:id" element={<EditExercises />} />
+                  </Routes>
+                  <Routes>
+                      <Route path="/create" exact element={<CreateExercises />} />
+                  </Routes>
+                  <Routes>
+                      <Route path="/user" exact element={<CreateUser />} />
+                  </Routes>
+              </div>
+          </BrowserRouter>
+      </>
   );
 }
 

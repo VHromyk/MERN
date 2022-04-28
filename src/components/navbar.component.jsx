@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom';
-
+import '../app.css';
 
 
 const Navbar = () => {
     return (
         <nav className="navbar navbar-dark bg-dark navbar-expand-lg">
+            <div className='container'>
             <Link to="/" className="navbar-brand">
                 ExcerTracker
             </Link>
@@ -26,6 +27,7 @@ const Navbar = () => {
                         </Link>
                     </li>
                 </ul>
+            </div>
             </div>
         </nav>
     );
